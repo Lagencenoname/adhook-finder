@@ -1,14 +1,23 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { HookCard } from "@/components/HookCard";
 import { SearchBar } from "@/components/SearchBar";
 import { FilterButton } from "@/components/FilterButton";
 import { hooksData } from "@/data/hooks";
-import { Sparkles } from "lucide-react";
 
 const Index = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategorie, setSelectedCategorie] = useState<string | null>(null);
   const [selectedSecteur, setSelectedSecteur] = useState<string | null>(null);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 100);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   // Extract unique categories and sectors
   const categories = useMemo(() => {
@@ -40,12 +49,11 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Fixed Header */}
-      <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-lg">
+      <header className="sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur-lg">
         <div className="container mx-auto px-4 py-6">
-          <div className="flex items-center justify-center gap-3 mb-6">
-            <Sparkles className="h-8 w-8 text-primary" />
-            <h1 className="text-4xl font-black bg-clip-text text-transparent gradient-primary">
-              Ad HOOKS
+          <div className="flex items-center justify-center mb-6">
+            <h1 className="text-4xl font-black text-foreground">
+              AD HOOKS
             </h1>
           </div>
           
@@ -54,7 +62,11 @@ const Index = () => {
       </header>
 
       {/* Filters Section */}
-      <section className="border-b border-border bg-card/30 sticky top-[145px] z-40 backdrop-blur-lg">
+      <section 
+        className={`border-b border-border bg-card/50 sticky top-[145px] z-40 backdrop-blur-lg transition-all duration-300 ${
+          isScrolled ? 'opacity-0 pointer-events-none -translate-y-4' : 'opacity-100'
+        }`}
+      >
         <div className="container mx-auto px-4 py-4 space-y-4">
           {/* Category Filters */}
           <div className="space-y-2">
