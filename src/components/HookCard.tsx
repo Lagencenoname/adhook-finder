@@ -59,7 +59,7 @@ export const HookCard = ({ titre, categorie, secteur, hookText, explication }: H
 
       <Button
         onClick={handleCopy}
-        className="w-full gradient-primary shadow-glow transition-smooth hover:scale-[1.02]"
+        className="w-full gradient-primary shadow-glow transition-all duration-300 hover:scale-[1.02] hover:shadow-xl animate-pulse-subtle"
         size="lg"
       >
         {copied ? (
