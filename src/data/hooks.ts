@@ -10,8 +10,6 @@ export interface Hook {
 
 export const hooksData: Hook[] = [
   {
-    [
-  {
     "id": 1,
     "titre": "Erreur de débutant en investissement",
     "categorie": "Engagement Cognitif et Émotionnel",
