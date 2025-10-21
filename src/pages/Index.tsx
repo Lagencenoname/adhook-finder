@@ -28,6 +28,7 @@ const Index = () => {
   const [selectedCategorie, setSelectedCategorie] = useState<string | null>(null);
   const [selectedSecteur, setSelectedSecteur] = useState<string | null>(null);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isFilterSheetOpen, setIsFilterSheetOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -71,7 +72,7 @@ const Index = () => {
       <header className="sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur-lg">
         <div className="container mx-auto px-4 py-6">
           <div className="flex items-center justify-between mb-6">
-            <Sheet>
+            <Sheet open={isFilterSheetOpen} onOpenChange={setIsFilterSheetOpen}>
               <SheetTrigger asChild>
                 <Button variant="outline" size="icon">
                   <Filter className="h-5 w-5" />
@@ -85,6 +86,20 @@ const Index = () => {
                   </SheetDescription>
                 </SheetHeader>
                 <div className="mt-6 space-y-6">
+                  {/* Clear Filters Button */}
+                  {(selectedCategorie !== null || selectedSecteur !== null) && (
+                    <Button 
+                      variant="outline" 
+                      className="w-full"
+                      onClick={() => {
+                        setSelectedCategorie(null);
+                        setSelectedSecteur(null);
+                      }}
+                    >
+                      Réinitialiser les filtres
+                    </Button>
+                  )}
+
                   {/* Category Filters */}
                   <div className="space-y-3">
                     <h3 className="text-sm font-semibold text-foreground uppercase tracking-wider">
@@ -94,14 +109,20 @@ const Index = () => {
                       <FilterButton
                         label="Toutes"
                         isActive={selectedCategorie === null}
-                        onClick={() => setSelectedCategorie(null)}
+                        onClick={() => {
+                          setSelectedCategorie(null);
+                          setIsFilterSheetOpen(false);
+                        }}
                       />
                       {categories.map(cat => (
                         <FilterButton
                           key={cat}
                           label={cat}
                           isActive={selectedCategorie === cat}
-                          onClick={() => setSelectedCategorie(cat === selectedCategorie ? null : cat)}
+                          onClick={() => {
+                            setSelectedCategorie(cat === selectedCategorie ? null : cat);
+                            setIsFilterSheetOpen(false);
+                          }}
                         />
                       ))}
                     </div>
@@ -116,14 +137,20 @@ const Index = () => {
                       <FilterButton
                         label="Tous"
                         isActive={selectedSecteur === null}
-                        onClick={() => setSelectedSecteur(null)}
+                        onClick={() => {
+                          setSelectedSecteur(null);
+                          setIsFilterSheetOpen(false);
+                        }}
                       />
                       {secteurs.map(sect => (
                         <FilterButton
                           key={sect}
                           label={sect}
                           isActive={selectedSecteur === sect}
-                          onClick={() => setSelectedSecteur(sect === selectedSecteur ? null : sect)}
+                          onClick={() => {
+                            setSelectedSecteur(sect === selectedSecteur ? null : sect);
+                            setIsFilterSheetOpen(false);
+                          }}
                         />
                       ))}
                     </div>
@@ -197,6 +224,16 @@ const Index = () => {
                       </li>
                     </ol>
                     <p className="mt-3 font-semibold">Votre Objectif : Transformez le temps passé à chercher l'inspiration en temps passé à créer du contenu engageant.</p>
+                  </section>
+
+                  <section className="border-t pt-6">
+                    <h3 className="text-lg font-bold mb-3">Questions, Collaboration ou Soumissions de Hooks ?</h3>
+                    <p className="mb-4">Nous sommes à votre écoute pour améliorer Ad HOOKS et enrichir notre collection.</p>
+                    <Button asChild className="w-full">
+                      <a href="mailto:digitalskillshub.pro@gmail.com">
+                        Contactez-nous
+                      </a>
+                    </Button>
                   </section>
                 </div>
               </DialogContent>
