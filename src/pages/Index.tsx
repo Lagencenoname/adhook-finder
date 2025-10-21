@@ -88,8 +88,8 @@ const Index = () => {
                   <HelpCircle className="h-5 w-5" />
                 </Button>
               </DialogTrigger>
-              <DialogContent className="fixed inset-0 top-[73px] h-[calc(100vh-73px)] max-w-full rounded-none p-0 flex flex-col">
-                <div className="overflow-y-auto flex-1 px-6 py-4">
+              <DialogContent className="max-w-full h-[calc(100vh-120px)] p-0 flex flex-col sm:max-w-2xl">
+                <div className="overflow-y-auto flex-1 px-6 py-6">
                 <DialogHeader>
                   <DialogTitle className="text-2xl">Guide d'Utilisation : Tirer le Meilleur d'Ad HOOKS</DialogTitle>
                   <DialogDescription>
