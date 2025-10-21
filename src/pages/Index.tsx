@@ -3,7 +3,7 @@ import { HookCard } from "@/components/HookCard";
 import { SearchBar } from "@/components/SearchBar";
 import { FilterButton } from "@/components/FilterButton";
 import { hooksData } from "@/data/hooks";
-import { HelpCircle, Filter, Copy } from "lucide-react";
+import { HelpCircle, Filter, Copy, ArrowUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/hooks/use-toast";
 import {
@@ -30,15 +30,21 @@ const Index = () => {
   const [selectedSecteur, setSelectedSecteur] = useState<string | null>(null);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isFilterSheetOpen, setIsFilterSheetOpen] = useState(false);
+  const [showScrollTop, setShowScrollTop] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 100);
+      setShowScrollTop(window.scrollY > 300);
     };
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   // Extract unique categories and sectors
   const categories = useMemo(() => {
@@ -395,6 +401,18 @@ const Index = () => {
           </div>
         </div>
       </footer>
+
+      {/* Scroll to Top Button */}
+      {showScrollTop && (
+        <Button
+          onClick={scrollToTop}
+          size="icon"
+          className="fixed bottom-8 right-8 z-50 shadow-lg hover:shadow-xl transition-all duration-300 animate-fade-in"
+          aria-label="Retour en haut"
+        >
+          <ArrowUp className="h-5 w-5" />
+        </Button>
+      )}
     </div>
   );
 };
