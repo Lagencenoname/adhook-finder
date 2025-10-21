@@ -279,6 +279,7 @@ const Index = () => {
                         onClick={() => {
                           setSelectedCategorie(null);
                           setSelectedSecteur(null);
+                          setIsFilterSheetOpen(false);
                         }}
                       >
                         Réinitialiser les filtres
@@ -296,6 +297,7 @@ const Index = () => {
                           isActive={selectedCategorie === null}
                           onClick={() => {
                             setSelectedCategorie(null);
+                            setIsFilterSheetOpen(false);
                           }}
                         />
                         {categories.map(cat => (
@@ -305,6 +307,7 @@ const Index = () => {
                             isActive={selectedCategorie === cat}
                             onClick={() => {
                               setSelectedCategorie(cat === selectedCategorie ? null : cat);
+                              setIsFilterSheetOpen(false);
                             }}
                           />
                         ))}
@@ -322,6 +325,7 @@ const Index = () => {
                           isActive={selectedSecteur === null}
                           onClick={() => {
                             setSelectedSecteur(null);
+                            setIsFilterSheetOpen(false);
                           }}
                         />
                         {secteurs.map(sect => (
@@ -331,6 +335,7 @@ const Index = () => {
                             isActive={selectedSecteur === sect}
                             onClick={() => {
                               setSelectedSecteur(sect === selectedSecteur ? null : sect);
+                              setIsFilterSheetOpen(false);
                             }}
                           />
                         ))}
