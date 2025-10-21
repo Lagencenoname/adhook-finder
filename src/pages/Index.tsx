@@ -4,6 +4,7 @@ import { SearchBar } from "@/components/SearchBar";
 import { FilterButton } from "@/components/FilterButton";
 import { hooksData } from "@/data/hooks";
 import { HelpCircle, Filter, Copy, ArrowUp } from "lucide-react";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/hooks/use-toast";
 import {
@@ -87,84 +88,86 @@ const Index = () => {
                   <Filter className="h-5 w-5" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="left" className="w-[300px] sm:w-[400px]">
-                <SheetHeader>
+              <SheetContent side="left" className="w-full sm:max-w-lg p-0 flex flex-col">
+                <SheetHeader className="px-6 py-4 border-b">
                   <SheetTitle>Filtres</SheetTitle>
                   <SheetDescription>
                     Affinez votre recherche par catégorie et secteur
                   </SheetDescription>
                 </SheetHeader>
-                <div className="mt-6 space-y-6">
-                  {/* Clear Filters Button */}
-                  {(selectedCategorie !== null || selectedSecteur !== null) && (
-                    <Button 
-                      variant="outline" 
-                      className="w-full"
-                      onClick={() => {
-                        setSelectedCategorie(null);
-                        setSelectedSecteur(null);
-                      }}
-                    >
-                      Réinitialiser les filtres
-                    </Button>
-                  )}
-
-                  {/* Category Filters */}
-                  <div className="space-y-3">
-                    <h3 className="text-sm font-semibold text-foreground uppercase tracking-wider">
-                      Catégorie
-                    </h3>
-                    <div className="flex flex-wrap gap-2">
-                      <FilterButton
-                        label="Toutes"
-                        isActive={selectedCategorie === null}
+                <ScrollArea className="flex-1 px-6">
+                  <div className="py-6 space-y-6">
+                    {/* Clear Filters Button */}
+                    {(selectedCategorie !== null || selectedSecteur !== null) && (
+                      <Button 
+                        variant="outline" 
+                        className="w-full"
                         onClick={() => {
                           setSelectedCategorie(null);
-                          setIsFilterSheetOpen(false);
-                        }}
-                      />
-                      {categories.map(cat => (
-                        <FilterButton
-                          key={cat}
-                          label={cat}
-                          isActive={selectedCategorie === cat}
-                          onClick={() => {
-                            setSelectedCategorie(cat === selectedCategorie ? null : cat);
-                            setIsFilterSheetOpen(false);
-                          }}
-                        />
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Sector Filters */}
-                  <div className="space-y-3">
-                    <h3 className="text-sm font-semibold text-foreground uppercase tracking-wider">
-                      Secteur
-                    </h3>
-                    <div className="flex flex-wrap gap-2">
-                      <FilterButton
-                        label="Tous"
-                        isActive={selectedSecteur === null}
-                        onClick={() => {
                           setSelectedSecteur(null);
-                          setIsFilterSheetOpen(false);
                         }}
-                      />
-                      {secteurs.map(sect => (
+                      >
+                        Réinitialiser les filtres
+                      </Button>
+                    )}
+
+                    {/* Category Filters */}
+                    <div className="space-y-3">
+                      <h3 className="text-sm font-semibold text-foreground uppercase tracking-wider">
+                        Catégorie
+                      </h3>
+                      <div className="flex flex-wrap gap-2">
                         <FilterButton
-                          key={sect}
-                          label={sect}
-                          isActive={selectedSecteur === sect}
+                          label="Toutes"
+                          isActive={selectedCategorie === null}
                           onClick={() => {
-                            setSelectedSecteur(sect === selectedSecteur ? null : sect);
+                            setSelectedCategorie(null);
                             setIsFilterSheetOpen(false);
                           }}
                         />
-                      ))}
+                        {categories.map(cat => (
+                          <FilterButton
+                            key={cat}
+                            label={cat}
+                            isActive={selectedCategorie === cat}
+                            onClick={() => {
+                              setSelectedCategorie(cat === selectedCategorie ? null : cat);
+                              setIsFilterSheetOpen(false);
+                            }}
+                          />
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Sector Filters */}
+                    <div className="space-y-3">
+                      <h3 className="text-sm font-semibold text-foreground uppercase tracking-wider">
+                        Secteur
+                      </h3>
+                      <div className="flex flex-wrap gap-2">
+                        <FilterButton
+                          label="Tous"
+                          isActive={selectedSecteur === null}
+                          onClick={() => {
+                            setSelectedSecteur(null);
+                            setIsFilterSheetOpen(false);
+                          }}
+                        />
+                        {secteurs.map(sect => (
+                          <FilterButton
+                            key={sect}
+                            label={sect}
+                            isActive={selectedSecteur === sect}
+                            onClick={() => {
+                              setSelectedSecteur(sect === selectedSecteur ? null : sect);
+                              setIsFilterSheetOpen(false);
+                            }}
+                          />
+                        ))}
+                      </div>
                     </div>
                   </div>
-                </div>
+                </ScrollArea>
               </SheetContent>
             </Sheet>
 
