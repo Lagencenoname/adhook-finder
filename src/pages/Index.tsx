@@ -82,106 +82,14 @@ const Index = () => {
       }`}>
         <div className="container mx-auto px-4 py-6">
           <div className="flex items-center justify-between mb-6">
-            <Sheet open={isFilterSheetOpen} onOpenChange={setIsFilterSheetOpen}>
-              <SheetTrigger asChild>
-                <Button variant="outline" size="icon">
-                  <Filter className="h-5 w-5" />
-                </Button>
-              </SheetTrigger>
-              <SheetContent side="left" className="w-full sm:max-w-lg p-0 flex flex-col">
-                <SheetHeader className="px-6 py-4 border-b">
-                  <SheetTitle>Filtres</SheetTitle>
-                  <SheetDescription>
-                    Affinez votre recherche par catégorie et secteur
-                  </SheetDescription>
-                </SheetHeader>
-                <ScrollArea className="flex-1 px-6">
-                  <div className="py-6 space-y-6">
-                    {/* Clear Filters Button */}
-                    {(selectedCategorie !== null || selectedSecteur !== null) && (
-                      <Button 
-                        variant="outline" 
-                        className="w-full"
-                        onClick={() => {
-                          setSelectedCategorie(null);
-                          setSelectedSecteur(null);
-                        }}
-                      >
-                        Réinitialiser les filtres
-                      </Button>
-                    )}
-
-                    {/* Category Filters */}
-                    <div className="space-y-3">
-                      <h3 className="text-sm font-semibold text-foreground uppercase tracking-wider">
-                        Catégorie
-                      </h3>
-                      <div className="flex flex-wrap gap-2">
-                        <FilterButton
-                          label="Toutes"
-                          isActive={selectedCategorie === null}
-                          onClick={() => {
-                            setSelectedCategorie(null);
-                            setIsFilterSheetOpen(false);
-                          }}
-                        />
-                        {categories.map(cat => (
-                          <FilterButton
-                            key={cat}
-                            label={cat}
-                            isActive={selectedCategorie === cat}
-                            onClick={() => {
-                              setSelectedCategorie(cat === selectedCategorie ? null : cat);
-                              setIsFilterSheetOpen(false);
-                            }}
-                          />
-                        ))}
-                      </div>
-                    </div>
-
-                    {/* Sector Filters */}
-                    <div className="space-y-3">
-                      <h3 className="text-sm font-semibold text-foreground uppercase tracking-wider">
-                        Secteur
-                      </h3>
-                      <div className="flex flex-wrap gap-2">
-                        <FilterButton
-                          label="Tous"
-                          isActive={selectedSecteur === null}
-                          onClick={() => {
-                            setSelectedSecteur(null);
-                            setIsFilterSheetOpen(false);
-                          }}
-                        />
-                        {secteurs.map(sect => (
-                          <FilterButton
-                            key={sect}
-                            label={sect}
-                            isActive={selectedSecteur === sect}
-                            onClick={() => {
-                              setSelectedSecteur(sect === selectedSecteur ? null : sect);
-                              setIsFilterSheetOpen(false);
-                            }}
-                          />
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </ScrollArea>
-              </SheetContent>
-            </Sheet>
-
-            <h1 className="text-4xl font-black text-foreground">
-              AD HOOKS
-            </h1>
-
             <Dialog>
               <DialogTrigger asChild>
                 <Button variant="outline" size="icon">
                   <HelpCircle className="h-5 w-5" />
                 </Button>
               </DialogTrigger>
-              <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+              <DialogContent className="fixed inset-0 top-[73px] h-[calc(100vh-73px)] max-w-full rounded-none p-0 flex flex-col">
+                <div className="overflow-y-auto flex-1 px-6 py-4">
                 <DialogHeader>
                   <DialogTitle className="text-2xl">Guide d'Utilisation : Tirer le Meilleur d'Ad HOOKS</DialogTitle>
                   <DialogDescription>
@@ -340,8 +248,102 @@ const Index = () => {
                     </Button>
                   </section>
                 </div>
+                </div>
               </DialogContent>
             </Dialog>
+
+            <h1 className="text-4xl font-black text-foreground">
+              AD HOOKS
+            </h1>
+
+            <Sheet open={isFilterSheetOpen} onOpenChange={setIsFilterSheetOpen}>
+              <SheetTrigger asChild>
+                <Button variant="outline" size="icon">
+                  <Filter className="h-5 w-5" />
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="right" className="w-full sm:max-w-lg p-0 flex flex-col">
+                <SheetHeader className="px-6 py-4 border-b">
+                  <SheetTitle>Filtres</SheetTitle>
+                  <SheetDescription>
+                    Affinez votre recherche par catégorie et secteur
+                  </SheetDescription>
+                </SheetHeader>
+                <ScrollArea className="flex-1 px-6">
+                  <div className="py-6 space-y-6">
+                    {/* Clear Filters Button */}
+                    {(selectedCategorie !== null || selectedSecteur !== null) && (
+                      <Button 
+                        variant="outline" 
+                        className="w-full"
+                        onClick={() => {
+                          setSelectedCategorie(null);
+                          setSelectedSecteur(null);
+                        }}
+                      >
+                        Réinitialiser les filtres
+                      </Button>
+                    )}
+
+                    {/* Category Filters */}
+                    <div className="space-y-3">
+                      <h3 className="text-sm font-semibold text-foreground uppercase tracking-wider">
+                        Catégorie
+                      </h3>
+                      <div className="flex flex-wrap gap-2">
+                        <FilterButton
+                          label="Toutes"
+                          isActive={selectedCategorie === null}
+                          onClick={() => {
+                            setSelectedCategorie(null);
+                            setIsFilterSheetOpen(false);
+                          }}
+                        />
+                        {categories.map(cat => (
+                          <FilterButton
+                            key={cat}
+                            label={cat}
+                            isActive={selectedCategorie === cat}
+                            onClick={() => {
+                              setSelectedCategorie(cat === selectedCategorie ? null : cat);
+                              setIsFilterSheetOpen(false);
+                            }}
+                          />
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Sector Filters */}
+                    <div className="space-y-3">
+                      <h3 className="text-sm font-semibold text-foreground uppercase tracking-wider">
+                        Secteur
+                      </h3>
+                      <div className="flex flex-wrap gap-2">
+                        <FilterButton
+                          label="Tous"
+                          isActive={selectedSecteur === null}
+                          onClick={() => {
+                            setSelectedSecteur(null);
+                            setIsFilterSheetOpen(false);
+                          }}
+                        />
+                        {secteurs.map(sect => (
+                          <FilterButton
+                            key={sect}
+                            label={sect}
+                            isActive={selectedSecteur === sect}
+                            onClick={() => {
+                              setSelectedSecteur(sect === selectedSecteur ? null : sect);
+                              setIsFilterSheetOpen(false);
+                            }}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </ScrollArea>
+              </SheetContent>
+            </Sheet>
           </div>
           
           <SearchBar value={searchQuery} onChange={setSearchQuery} />
